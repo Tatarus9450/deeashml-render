@@ -4,6 +4,9 @@ services:
     runtime: python
     plan: free
     region: singapore
-    buildCommand: pip install -r requirements.txt
+    buildCommand: "python -m pip install --only-binary=:all: -r requirements.txt"
     startCommand: python serve_final_app.py
     healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
