@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: deeashml-render
+    runtime: python
+    plan: free
+    region: singapore
+    buildCommand: pip install -r requirements.txt
+    startCommand: python serve_final_app.py
+    healthCheckPath: /health

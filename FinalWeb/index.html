@@ -1,0 +1,454 @@
+﻿<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DeeAsh Insight Studio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="generated/data.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="tab-nav" aria-label="Main navigation">
+        <a class="tab-link is-active" href="#home" data-tab="home">Home</a>
+        <a class="tab-link" href="#supervise" data-tab="supervise">Supervise</a>
+        <a class="tab-link" href="#unsupervise" data-tab="unsupervise">Unsupervise</a>
+        <a class="tab-link" href="#insight" data-tab="insight">Business Insight</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="tab-panel is-active">
+        <div class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">DeeAsh Insight Studio</p>
+            <h1>DeeAsh Customer Intelligence (วิเคราะห์ลูกค้า DeeAsh)</h1>
+            <p class="lead">
+              รวมผลทำนายโอกาสการใช้แชมพูปิดผมขาว การแบ่งกลุ่มลูกค้า และข้อเสนอเชิงธุรกิจ
+              เพื่อช่วยวางแผนการสื่อสารของ DeeAsh ให้แม่นยำขึ้น
+            </p>
+            <div class="stat-row" id="heroStats"></div>
+          </div>
+          <div class="hero-media">
+            <img src="assets/DeeAsh_Mascot.png" alt="DeeAsh mascot" />
+          </div>
+        </div>
+
+        <div class="overview-grid">
+          <article>
+            <span class="card-kicker">Supervised ML</span>
+            <h2>DeeAsh Fit Score</h2>
+            <p>ประเมินความเป็นไปได้ที่ผู้ตอบแบบสอบถามจะอยู่ในกลุ่มเคยใช้แชมพูปิดผมขาว จากข้อมูล demographic และพฤติกรรมพื้นฐาน</p>
+          </article>
+          <article>
+            <span class="card-kicker">Unsupervised ML</span>
+            <h2>Customer Segmentation</h2>
+            <p>ใช้ K-Means แบ่งลูกค้าเป็น Confidence Seeker และ Budget-Smart Buyer เพื่อสร้าง persona และกลยุทธ์แคมเปญ</p>
+          </article>
+          <article>
+            <span class="card-kicker">Business Layer</span>
+            <h2>Actionable Strategy</h2>
+            <p>แปลงผลโมเดลเป็น message, channel, creative direction และแนวทางวัดผลสำหรับการตลาดจริง</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="supervise" class="tab-panel">
+        <div class="section-heading">
+          <p class="eyebrow">Supervised Learning</p>
+          <h1>Fit Score Prediction (ประเมินโอกาสการใช้สินค้า)</h1>
+          <p>ส่วนนี้ใช้โมเดลจำแนกกลุ่มลูกค้าที่มีแนวโน้ม “เคยใช้แชมพูปิดผมขาว” เพื่อช่วยอ่านสัญญาณความพร้อมซื้อ</p>
+        </div>
+
+        <section class="best-model-card">
+          <div>
+            <span class="card-kicker">Best Model Summary</span>
+            <h2 id="bestModelTitle">โมเดลที่แนะนำ</h2>
+            <p id="bestModelDescription"></p>
+          </div>
+          <div class="best-model-stats" id="bestModelStats"></div>
+        </section>
+
+        <section class="liquid-section">
+          <div class="section-top">
+            <span class="section-mark">▣</span>
+            <div>
+              <h2>Model Comparison (เปรียบเทียบโมเดล)</h2>
+              <p>สรุปผล Train/Test แบบกระชับ เพื่อเลือกโมเดลที่เหมาะกับข้อมูล DeeAsh</p>
+            </div>
+          </div>
+          <div class="model-grid" id="modelPerformanceGrid"></div>
+        </section>
+
+        <div class="metric-strip" id="supervisedMetricStrip"></div>
+
+        <div class="supervise-layout fit-game-layout">
+          <form class="predictor-card fit-form" id="fitForm">
+            <div class="game-topbar">
+              <div>
+                <span class="card-kicker">Customer Assessment</span>
+                <h2>Fit Score Form (แบบประเมินลูกค้า)</h2>
+                <p class="form-note">เลือกคำตอบที่ใกล้ตัวที่สุด แล้วให้ดีจังจังเปิดการ์ดผลลัพธ์ให้คุณ</p>
+              </div>
+              <div class="progress-shell" aria-label="ความคืบหน้า">
+                <div class="progress-label">
+                  <span>ความคืบหน้า</span>
+                  <span id="progressText">0/7</span>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill" id="progressFill"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="steps">
+              <section class="step" data-step>
+                <div class="step-title"><span class="step-no">1</span><h3>เพศ</h3></div>
+                <div class="select-wrap">
+                  <select name="gender" required>
+                    <option value="หญิง">หญิง</option>
+                    <option value="ชาย">ชาย</option>
+                    <option value="LGBTQ+">LGBTQ+</option>
+                    <option value="ไม่ระบุ">ไม่ระบุ</option>
+                  </select>
+                </div>
+              </section>
+
+              <section class="step" data-step>
+                <div class="step-title"><span class="step-no">2</span><h3>อายุ</h3></div>
+                <div class="select-wrap">
+                  <select name="age_group" required>
+                    <option value="ต่ำกว่า 30 ปี">ต่ำกว่า 30 ปี</option>
+                    <option value="30–34 ปี">30–34 ปี</option>
+                    <option value="35–44 ปี">35–44 ปี</option>
+                    <option value="45–54 ปี">45–54 ปี</option>
+                    <option value="55 ปีขึ้นไป" selected>55 ปีขึ้นไป</option>
+                  </select>
+                </div>
+              </section>
+
+              <section class="step" data-step>
+                <div class="step-title"><span class="step-no">3</span><h3>ภูมิภาคที่อยู่</h3></div>
+                <div class="select-wrap">
+                  <select name="region" required>
+                    <option value="กทม. & ปริมณฑล" selected>กทม. & ปริมณฑล</option>
+                    <option value="ภาคเหนือ">ภาคเหนือ</option>
+                    <option value="ภาคกลาง">ภาคกลาง</option>
+                    <option value="ภาคอีสาน">ภาคอีสาน</option>
+                    <option value="ภาคใต้">ภาคใต้</option>
+                    <option value="ภาคตะวันออก">ภาคตะวันออก</option>
+                    <option value="ภาคตะวันตก">ภาคตะวันตก</option>
+                    <option value="ไม่ระบุ">ไม่ระบุ</option>
+                  </select>
+                </div>
+              </section>
+
+              <section class="step" data-step>
+                <div class="step-title"><span class="step-no">4</span><h3>วิธีที่เคยใช้ปิดผมขาว</h3></div>
+                <div class="option-grid">
+                  <label class="option"><input type="checkbox" name="product_shampoo_color" /><span class="choice-dot">✓</span><span>แชมพูปิดผมขาว</span></label>
+                  <label class="option"><input type="checkbox" name="product_mixing_cream" /><span class="choice-dot">✓</span><span>ครีมเปลี่ยนสีผมแบบต้องผสม</span></label>
+                  <label class="option"><input type="checkbox" name="product_sachet_cream" /><span class="choice-dot">✓</span><span>แบบซองครีม</span></label>
+                  <label class="option"><input type="checkbox" name="product_never_used" id="neverUsed" /><span class="choice-dot">✓</span><span>ไม่เคยใช้ผลิตภัณฑ์ปิดผมขาวเลย</span></label>
+                </div>
+              </section>
+
+              <section class="step" data-step>
+                <div class="step-title"><span class="step-no">5</span><h3>โมเมนต์ที่อยากปิดผมขาวที่สุด</h3></div>
+                <div class="option-grid">
+                  <label class="option"><input type="radio" name="moment" value="event" checked /><span class="choice-dot">✓</span><span>ก่อนออกงาน</span></label>
+                  <label class="option"><input type="radio" name="moment" value="friends" /><span class="choice-dot">✓</span><span>ก่อนเจอเพื่อนหรือคนรู้จัก</span></label>
+                  <label class="option"><input type="radio" name="moment" value="work" /><span class="choice-dot">✓</span><span>ก่อนประชุมหรือทำงาน</span></label>
+                  <label class="option"><input type="radio" name="moment" value="confidence" /><span class="choice-dot">✓</span><span>วันที่รู้สึกไม่มั่นใจ</span></label>
+                  <label class="option"><input type="radio" name="moment" value="routine" /><span class="choice-dot">✓</span><span>ใช้เป็นประจำ</span></label>
+                </div>
+              </section>
+
+              <section class="step" data-step>
+                <div class="step-title"><span class="step-no">6</span><h3>สิ่งที่กังวลที่สุด</h3></div>
+                <div class="option-grid">
+                  <label class="option"><input type="radio" name="concern" value="strong_smell" checked /><span class="choice-dot">✓</span><span>กลิ่นฉุน</span></label>
+                  <label class="option"><input type="radio" name="concern" value="scalp_irritation" /><span class="choice-dot">✓</span><span>แสบหนังศีรษะ</span></label>
+                  <label class="option"><input type="radio" name="concern" value="dry_hair" /><span class="choice-dot">✓</span><span>ผมแห้งเสีย</span></label>
+                  <label class="option"><input type="radio" name="concern" value="not_durable" /><span class="choice-dot">✓</span><span>สีไม่ทน</span></label>
+                  <label class="option"><input type="radio" name="concern" value="stain" /><span class="choice-dot">✓</span><span>สีเปื้อนมือหรือผิว</span></label>
+                  <label class="option"><input type="radio" name="concern" value="expensive" /><span class="choice-dot">✓</span><span>ราคาแพง</span></label>
+                </div>
+              </section>
+
+              <section class="step" data-step>
+                <div class="step-title"><span class="step-no">7</span><h3>สิ่งที่ต้องการมากที่สุด</h3></div>
+                <div class="option-grid">
+                  <label class="option"><input type="radio" name="need" value="smooth_coverage" checked /><span class="choice-dot">✓</span><span>ปิดเนียน</span></label>
+                  <label class="option"><input type="radio" name="need" value="natural_color" /><span class="choice-dot">✓</span><span>สีธรรมชาติ</span></label>
+                  <label class="option"><input type="radio" name="need" value="easy" /><span class="choice-dot">✓</span><span>ใช้ง่าย</span></label>
+                  <label class="option"><input type="radio" name="need" value="fast" /><span class="choice-dot">✓</span><span>เร็ว</span></label>
+                  <label class="option"><input type="radio" name="need" value="value" /><span class="choice-dot">✓</span><span>คุ้มค่า</span></label>
+                  <label class="option"><input type="radio" name="need" value="mild_smell" /><span class="choice-dot">✓</span><span>ไม่ฉุน</span></label>
+                  <label class="option"><input type="radio" name="need" value="nourishing" /><span class="choice-dot">✓</span><span>มีสารบำรุง</span></label>
+                </div>
+              </section>
+            </div>
+
+            <div class="fit-actions">
+              <button class="primary-btn" type="submit">เปิดการ์ดผลลัพธ์</button>
+              <button class="secondary-btn" type="reset">เล่นใหม่</button>
+            </div>
+            <p id="errorText" class="form-note error hidden"></p>
+          </form>
+
+          <aside class="score-card result-card" id="resultCard" aria-live="polite">
+            <span class="card-kicker">Prediction Result</span>
+            <h2>DeeAsh Fit Score</h2>
+            <div class="score-stage">
+              <div class="score-ring" id="scoreRing" style="--score:0">
+                <div class="score-value"><span id="scoreText">--</span><small>คะแนนเต็ม 100</small></div>
+              </div>
+            </div>
+            <div id="levelText" class="level">รอคำตอบ</div>
+            <div id="personaText" class="persona">ตอบคำถามเพื่อดูกลุ่มบุคลิก</div>
+            <p id="recommendationText" class="recommendation">ระบบจะเปิดการ์ดผลลัพธ์หลังตอบครบ</p>
+            <div id="messageText" class="message">กด “เปิดการ์ดผลลัพธ์” แล้วให้ดีจังจังช่วยลุ้นคะแนน</div>
+            <div class="reward-strip" aria-hidden="true">
+              <div class="reward" id="rewardLevel">รอคะแนน</div>
+              <div class="reward" id="rewardMood">เปิดการ์ดก่อน</div>
+              <div class="reward" id="rewardAction">ดีจังรออยู่</div>
+              <div class="reward" id="rewardKeyword">Fit Score</div>
+            </div>
+            <p class="form-note">Fit Score = ความน่าจะเป็นของกลุ่ม “เคยใช้แชมพูปิดผมขาว” × 100</p>
+          </aside>
+        </div>
+
+        <div class="chart-grid">
+          <article class="chart-card">
+            <img src="assets/supervise/metrics_bar.png" alt="Supervised model metrics" />
+            <h3>Model Metrics</h3>
+          </article>
+          <article class="chart-card">
+            <img src="assets/supervise/roc_curve.png" alt="ROC curve" />
+            <h3>ROC Curve</h3>
+          </article>
+          <article class="chart-card">
+            <img src="assets/supervise/confusion_matrix.png" alt="Confusion matrix" />
+            <h3>Confusion Matrix</h3>
+          </article>
+          <article class="chart-card">
+            <img src="assets/supervise/feature_coefficients.png" alt="Feature coefficients" />
+            <h3>Feature Coefficients</h3>
+          </article>
+        </div>
+      </section>
+
+      <section id="unsupervise" class="tab-panel">
+        <div class="section-heading">
+          <p class="eyebrow">Unsupervised Learning</p>
+          <h1>Customer Segments (การแบ่งกลุ่มลูกค้า)</h1>
+          <p>K-Means แนะนำ K=2 เพื่อให้กลุ่มมีขนาดใช้งานเชิงธุรกิจได้ และตีความเป็น persona สำหรับวางแคมเปญได้จริง</p>
+        </div>
+
+        <section class="liquid-section">
+          <div class="center-heading">
+            <span class="badge">UNSUPERVISED LEARNING</span>
+            <h2>การจัดกลุ่มลูกค้า (Customer Segments)</h2>
+            <p>วิเคราะห์พฤติกรรมและแบ่งกลุ่มลูกค้าด้วย K-Means Clustering และ PCA</p>
+          </div>
+          <div class="liquid-grid two">
+            <article class="data-card">
+              <h3>การกระจายตัวของกลุ่ม (PCA 2D)</h3>
+              <p>ลดมิติข้อมูลเพื่อแสดงภาพรวมการแบ่งกลุ่มลูกค้า</p>
+              <div class="mini-facts">
+                <span><strong>16</strong> selected features</span>
+                <span><strong>2</strong> segments</span>
+                <span><strong>62</strong> ML-ready rows</span>
+              </div>
+              <img src="assets/unsupervise/pca_map.png" alt="PCA customer map" />
+            </article>
+            <article class="data-card">
+              <h3>สัดส่วนกลุ่มลูกค้า</h3>
+              <p>จากกลุ่มตัวอย่างสำหรับ Unsupervised ML แบ่งด้วย K-Means</p>
+              <div id="segmentShareBars" class="bar-list"></div>
+              <div class="note-box"><strong>วิธีแบ่ง:</strong> เลือก K=2 ด้วย silhouette + business guardrail เพื่อไม่ให้เกิดกลุ่มเล็กเกินตีความ</div>
+            </article>
+          </div>
+        </section>
+
+        <section class="liquid-section">
+          <div class="section-top">
+            <span class="section-mark">◎</span>
+            <div>
+              <h2>Customer Persona (บุคลิกกลุ่มลูกค้า)</h2>
+              <p>ลักษณะเด่นและพฤติกรรมของลูกค้าในแต่ละ Cluster</p>
+            </div>
+          </div>
+          <div class="persona-grid" id="personaGrid"></div>
+        </section>
+
+        <div class="segment-grid" id="segmentCards"></div>
+
+        <div class="chart-grid">
+          <article class="chart-card">
+            <img src="assets/unsupervise/elbow.png" alt="Elbow method" />
+            <h3>Optimal K: Elbow</h3>
+          </article>
+          <article class="chart-card">
+            <img src="assets/unsupervise/silhouette.png" alt="Silhouette score" />
+            <h3>Silhouette Quality</h3>
+          </article>
+          <article class="chart-card chart-wide">
+            <img src="assets/unsupervise/pca_map.png" alt="PCA customer map" />
+            <h3>PCA Customer Map</h3>
+          </article>
+          <article class="chart-card">
+            <img src="assets/unsupervise/segment_share.png" alt="Cluster distribution" />
+            <h3>Segment Share</h3>
+          </article>
+          <article class="chart-card">
+            <img src="assets/unsupervise/persona_summary.png" alt="Persona summary" />
+            <h3>Persona Summary</h3>
+          </article>
+        </div>
+      </section>
+
+      <section id="insight" class="tab-panel">
+        <div class="section-heading">
+          <p class="eyebrow">Business Insight</p>
+          <h1>Business Insight (ข้อเสนอเชิงธุรกิจ)</h1>
+          <p>ใช้ Supervised ML เพื่อคัดกลุ่มที่มีโอกาสสนใจ และใช้ Unsupervised ML เพื่อเลือกข้อความกับช่องทางให้เหมาะกับ persona</p>
+        </div>
+
+        <section class="liquid-section">
+          <div class="section-top">
+            <span class="section-mark">01</span>
+            <div>
+              <h2>Demographics (ข้อมูลกลุ่มเป้าหมาย)</h2>
+              <p>ข้อมูลกลุ่มเป้าหมายจากแบบสอบถาม DeeAsh</p>
+            </div>
+          </div>
+          <div class="liquid-grid two">
+            <article class="data-card">
+              <h3>กลุ่มอายุ</h3>
+              <div id="ageBars" class="bar-list"></div>
+            </article>
+            <article class="data-card">
+              <h3>ภูมิภาค</h3>
+              <div id="regionBars" class="bar-list"></div>
+            </article>
+            <article class="data-card wide">
+              <h3>เพศ</h3>
+              <div class="donut-row">
+                <div class="donut" id="genderDonut"><span id="genderTotal">113</span><small>TOTAL</small></div>
+                <div id="genderLegend" class="legend-list"></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="liquid-section">
+          <div class="section-top">
+            <span class="section-mark">02</span>
+            <div>
+              <h2>Brand & Purchase Factors (แบรนด์และปัจจัยเลือกซื้อ)</h2>
+              <p>ข้อมูลแบรนด์และปัจจัยที่ผู้ใช้ให้ความสำคัญ</p>
+            </div>
+          </div>
+          <div class="liquid-grid two">
+            <article class="data-card">
+              <h3>แบรนด์ที่ใช้บ่อย</h3>
+              <div id="brandBars" class="bar-list"></div>
+            </article>
+            <article class="data-card">
+              <h3>ปัจจัยที่คาดหวังจากสินค้า</h3>
+              <div id="factorBars" class="bar-list dense"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="liquid-section">
+          <div class="section-top">
+            <span class="section-mark">03</span>
+            <div>
+              <h2 id="brandUserTitle">DeeAsh / HerbaSure User Profile</h2>
+              <p id="brandUserSubtitle">ผู้ใช้แบรนด์ในกลุ่มตัวอย่าง</p>
+            </div>
+          </div>
+          <div class="liquid-grid two">
+            <article class="data-card">
+              <h3>เพศ</h3>
+              <div class="donut-row">
+                <div class="donut hot" id="brandGenderDonut"><span id="brandGenderTotal">0</span><small>TOTAL</small></div>
+                <div id="brandGenderLegend" class="legend-list"></div>
+              </div>
+            </article>
+            <article class="data-card">
+              <h3>กลุ่มอายุ</h3>
+              <div id="brandAgeBars" class="bar-list"></div>
+            </article>
+            <article class="data-card">
+              <h3>ภูมิภาค</h3>
+              <div id="brandRegionBars" class="bar-list"></div>
+            </article>
+            <article class="data-card">
+              <h3>ช่องทางซื้อบ่อย</h3>
+              <div id="brandChannelBars" class="bar-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="liquid-section">
+          <div class="section-top">
+            <span class="section-mark">04</span>
+            <div>
+              <h2>Strategic Recommendations (ข้อเสนอเชิงกลยุทธ์)</h2>
+              <p>คำแนะนำเชิงกลยุทธ์จากการวิเคราะห์ข้อมูล DeeAsh</p>
+            </div>
+          </div>
+          <div id="recommendationList" class="recommendation-list"></div>
+        </section>
+
+        <div class="insight-grid">
+          <article>
+            <span class="card-kicker">Brand Campaign</span>
+            <h2>สร้างความมั่นใจ</h2>
+            <p>เน้น before/after, ความพร้อมก่อนออกงาน, social proof และรีวิวที่ลดความกังวลเรื่องกลิ่นหรือประสบการณ์ใช้งาน</p>
+          </article>
+          <article>
+            <span class="card-kicker">Performance Campaign</span>
+            <h2>ปิดการขายด้วยความคุ้มค่า</h2>
+            <p>ใช้โปรโมชัน bundle, coupon, cost-per-use และคอนเทนต์เปรียบเทียบราคาใน TikTok Shop และ Shopee/Lazada</p>
+          </article>
+          <article>
+            <span class="card-kicker">Measurement</span>
+            <h2>วัดผลตาม funnel</h2>
+            <p>ดู CTR เพื่อวัด message fit, add-to-cart เพื่อวัด buying context และ conversion เพื่อยืนยัน persona hypothesis</p>
+          </article>
+        </div>
+
+        <div class="strategy-table" role="table" aria-label="Business strategy table">
+          <div role="row">
+            <strong role="columnheader">Persona</strong>
+            <strong role="columnheader">Message</strong>
+            <strong role="columnheader">Channel</strong>
+            <strong role="columnheader">KPI</strong>
+          </div>
+          <div role="row">
+            <span>Confidence Seeker</span>
+            <span>พร้อมมั่นใจก่อนทุกโมเมนต์ที่คนสังเกตเห็นคุณ</span>
+            <span>TikTok, Facebook Reels, YouTube Shorts</span>
+            <span>CTR, video completion, brand search</span>
+          </div>
+          <div role="row">
+            <span>Budget-Smart Buyer</span>
+            <span>ปิดผมขาวมั่นใจ ในราคาที่คุ้มพอให้ลองทันที</span>
+            <span>TikTok Shop, Shopee/Lazada, LINE OA</span>
+            <span>Add-to-cart, coupon use, conversion</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <button class="back-to-top" type="button" aria-label="กลับขึ้นด้านบน">↑</button>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
