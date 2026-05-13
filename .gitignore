@@ -5,3 +5,12 @@ __pycache__/
 .DS_Store
 .pytest_cache/
 .render/
+*.zip
+
+# Keep this repo as the lightweight Render runtime only.
+DataPrep/
+UnsuperviseML/
+*.ipynb
+SuperviseML/results/*
+!SuperviseML/results/
+!SuperviseML/results/deeash_fit_model.pkl
