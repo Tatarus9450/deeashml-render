@@ -20,6 +20,10 @@ def load_model_payload() -> dict[str, object]:
 MODEL_PAYLOAD = load_model_payload()
 
 
+def model_name() -> str:
+    return str(MODEL_PAYLOAD.get("model_name") or MODEL_PAYLOAD["model"].named_steps["model"].__class__.__name__)
+
+
 def score_level(score: float) -> str:
     if score >= 75:
         return "เหมาะมาก"
@@ -126,6 +130,7 @@ def predict(data: dict[str, object]) -> dict[str, object]:
     return {
         "score": score,
         "probability": probability,
+        "model_name": model_name(),
         "level": level,
         "persona": persona,
         "recommendation": recommendation,

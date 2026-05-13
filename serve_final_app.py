@@ -7,7 +7,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import unquote
 
-from SuperviseML.serve_deeash_fit_app import predict
+from SuperviseML.serve_deeash_fit_app import model_name, predict
 
 
 PROJECT_DIR = Path(__file__).resolve().parent
@@ -45,7 +45,10 @@ class FinalAppHandler(BaseHTTPRequestHandler):
     def do_HEAD(self) -> None:
         request_path = unquote(self.path.split("?", 1)[0])
         if request_path == "/health":
-            self.write_json({"status": "ok", "service": "DeeAsh Insight Studio"}, send_body=False)
+            self.write_json(
+                {"status": "ok", "service": "DeeAsh Insight Studio", "model_name": model_name()},
+                send_body=False,
+            )
             return
         if request_path in {"/", "/index.html"}:
             self.serve_file(FINAL_WEB_DIR / "index.html", send_body=False)
@@ -61,7 +64,7 @@ class FinalAppHandler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
         request_path = unquote(self.path.split("?", 1)[0])
         if request_path == "/health":
-            self.write_json({"status": "ok", "service": "DeeAsh Insight Studio"})
+            self.write_json({"status": "ok", "service": "DeeAsh Insight Studio", "model_name": model_name()})
             return
         if request_path in {"/", "/index.html"}:
             self.serve_file(FINAL_WEB_DIR / "index.html")
