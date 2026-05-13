@@ -175,6 +175,7 @@ function renderResult(result) {
   document.querySelector("#personaText").textContent = result.persona;
   document.querySelector("#recommendationText").textContent = result.recommendation;
   document.querySelector("#messageText").textContent = result.marketing_message;
+  document.querySelector("#runtimeModelText").textContent = `โมเดลที่ใช้: ${result.model_name || "ไม่ระบุ"}`;
   renderRewards(result);
   resultCard?.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
@@ -186,6 +187,7 @@ function resetResult() {
   document.querySelector("#personaText").textContent = "ตอบคำถามเพื่อดูกลุ่มบุคลิก";
   document.querySelector("#recommendationText").textContent = "ระบบจะเปิดการ์ดผลลัพธ์หลังตอบครบ";
   document.querySelector("#messageText").textContent = "กด “เปิดการ์ดผลลัพธ์” แล้วให้ดีจังจังช่วยลุ้นคะแนน";
+  document.querySelector("#runtimeModelText").textContent = "โมเดลที่ใช้: รอผลลัพธ์";
   resetRewards();
   updateProgress();
 }

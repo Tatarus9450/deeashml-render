@@ -63,7 +63,7 @@
 
         <section class="best-model-card">
           <div>
-            <span class="card-kicker">Best Model Summary</span>
+            <span class="card-kicker">Runtime Model Summary</span>
             <h2 id="bestModelTitle">โมเดลที่แนะนำ</h2>
             <p id="bestModelDescription"></p>
           </div>
@@ -210,6 +210,7 @@
             <div id="personaText" class="persona">ตอบคำถามเพื่อดูกลุ่มบุคลิก</div>
             <p id="recommendationText" class="recommendation">ระบบจะเปิดการ์ดผลลัพธ์หลังตอบครบ</p>
             <div id="messageText" class="message">กด “เปิดการ์ดผลลัพธ์” แล้วให้ดีจังจังช่วยลุ้นคะแนน</div>
+            <p class="form-note" id="runtimeModelText">โมเดลที่ใช้: รอผลลัพธ์</p>
             <div class="reward-strip" aria-hidden="true">
               <div class="reward" id="rewardLevel">รอคะแนน</div>
               <div class="reward" id="rewardMood">เปิดการ์ดก่อน</div>
@@ -236,6 +237,14 @@
           <article class="chart-card">
             <img src="assets/supervise/feature_coefficients.png" alt="Feature coefficients" />
             <h3>Feature Coefficients</h3>
+          </article>
+          <article class="chart-card">
+            <img src="assets/supervise/precision_recall_curve.png" alt="Precision recall curve" />
+            <h3>Precision-Recall Curve</h3>
+          </article>
+          <article class="chart-card">
+            <img src="assets/supervise/probability_distribution.png" alt="Prediction probability distribution" />
+            <h3>Probability Distribution</h3>
           </article>
         </div>
       </section>

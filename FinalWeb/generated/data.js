@@ -41,28 +41,29 @@ window.DEEASH_FINAL_DATA = {
       }
     ],
     "bestModel": {
-      "name": "Random Forest",
-      "title": "โมเดลที่แนะนำ: Random Forest",
-      "description": "จากการเปรียบเทียบโมเดล 4 แบบ Random Forest ให้ผลทดสอบดีที่สุดในภาพรวม โดยมี F1-Score 0.89, Accuracy 0.86 และ Recall 1.00 จึงเหมาะกับโจทย์นี้ที่ต้องการจับกลุ่มลูกค้าที่มีโอกาสสนใจให้ครอบคลุมก่อนนำไปทำแคมเปญ",
+      "name": "Logistic Regression",
+      "title": "โมเดลที่ใช้งานจริง: Logistic Regression",
+      "description": "Runtime /predict ใช้โมเดล Logistic Regression ที่ train จาก SuperviseML/results/deeash_fit_model.pkl ล่าสุดของโปรเจกต์ต้นฉบับ โดยมี ROC-AUC 0.933, Accuracy 0.828 และ Recall 0.938 บน holdout set",
       "stats": [
         {
-          "label": "F1-Score",
-          "value": "0.89"
+          "label": "ROC-AUC",
+          "value": "0.933"
         },
         {
           "label": "Accuracy",
-          "value": "0.86"
+          "value": "0.828"
         },
         {
           "label": "Recall",
-          "value": "1.00"
+          "value": "0.938"
         }
       ]
     },
     "fitModel": {
       "rows": 113,
       "used": 63,
-      "notUsed": 50
+      "notUsed": 50,
+      "inputFile": "DataPrep/output/02_cleaned_survey.csv"
     },
     "modelPerformance": [
       {

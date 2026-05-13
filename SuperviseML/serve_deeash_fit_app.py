@@ -21,7 +21,13 @@ MODEL_PAYLOAD = load_model_payload()
 
 
 def model_name() -> str:
-    return str(MODEL_PAYLOAD.get("model_name") or MODEL_PAYLOAD["model"].named_steps["model"].__class__.__name__)
+    name = str(MODEL_PAYLOAD.get("model_name") or MODEL_PAYLOAD["model"].named_steps["model"].__class__.__name__)
+    return {
+        "LogisticRegression": "Logistic Regression",
+        "RandomForestClassifier": "Random Forest",
+        "GradientBoostingClassifier": "Gradient Boosting",
+        "DecisionTreeClassifier": "Decision Tree",
+    }.get(name, name)
 
 
 def score_level(score: float) -> str:

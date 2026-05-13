@@ -57,4 +57,4 @@ The web form calls:
 POST /predict
 ```
 
-The endpoint loads `SuperviseML/results/deeash_fit_model.pkl` and returns `score`, `level`, `persona`, `recommendation`, and `marketing_message`.
+The endpoint loads the latest runtime artifact copied from the source project at `DeeAshML/SuperviseML/results/deeash_fit_model.pkl` and returns `score`, `model_name`, `level`, `persona`, `recommendation`, and `marketing_message`.
